@@ -1,4 +1,6 @@
 function calculator() {
+  // Calculator
+
   const result = document.querySelector('.calculating__result span');
 
   let sex, height, weight, age, ratio;
@@ -13,9 +15,27 @@ function calculator() {
   if (localStorage.getItem('ratio')) {
     ratio = localStorage.getItem('ratio');
   } else {
-    ratio = 'female';
-    localStorage.setItem('ratio', 'female');
+    ratio = 1.375;
+    localStorage.setItem('ratio', 1.375);
   }
+
+  function calcTotal() {
+    if (!sex || !height || !weight || !age || !ratio) {
+      result.textContent = '____';
+      return;
+    }
+    if (sex === 'female') {
+      result.textContent = Math.round(
+        (447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio
+      );
+    } else {
+      result.textContent = Math.round(
+        (88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ratio
+      );
+    }
+  }
+
+  calcTotal();
 
   function initLocalSettings(selector, activeClass) {
     const elements = document.querySelectorAll(selector);
@@ -36,24 +56,6 @@ function calculator() {
     '.calculating__choose_big div',
     'calculating__choose-item_active'
   );
-
-  function calcTotal() {
-    if (!sex || !height || !weight || !age || !ratio) {
-      result.textContent = '____'; // Можете придумать что угодно
-      return;
-    }
-    if (sex === 'female') {
-      result.textContent = Math.round(
-        (447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio
-      );
-    } else {
-      result.textContent = Math.round(
-        (88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ratio
-      );
-    }
-  }
-
-  calcTotal();
 
   function getStaticInformation(selector, activeClass) {
     const elements = document.querySelectorAll(selector);
@@ -94,7 +96,6 @@ function calculator() {
       } else {
         input.style.border = 'none';
       }
-
       switch (input.getAttribute('id')) {
         case 'height':
           height = +input.value;

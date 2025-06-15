@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', function () {
     modal = require('./modules/modal'),
     timer = require('./modules/timer'),
     cards = require('./modules/cards'),
-    calc = require('./modules/calc'),
+    calculator = require('./modules/calculator'),
     forms = require('./modules/forms'),
     slider = require('./modules/slider');
 
@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', function () {
   modal();
   timer();
   cards();
-  calc();
+  calculator();
   forms();
   slider();
 });

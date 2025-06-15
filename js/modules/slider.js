@@ -1,4 +1,6 @@
-function sliders() {
+function slider() {
+  // Slider
+
   let offset = 0;
   let slideIndex = 1;
 
@@ -74,25 +76,6 @@ function sliders() {
     dots.push(dot);
   }
 
-  function updateCurrentSlideNumber() {
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
-  }
-
-  function updateDotsOpacity() {
-    dots.forEach((dot) => (dot.style.opacity = '.5'));
-    dots[slideIndex - 1].style.opacity = 1;
-  }
-
-  function updateSlider() {
-    slidesField.style.transform = `translateX(-${offset}px)`;
-    updateCurrentSlideNumber();
-    updateDotsOpacity();
-  }
-
   next.addEventListener('click', () => {
     if (offset == deleteNotDigits(width) * (slides.length - 1)) {
       offset = 0;
@@ -100,12 +83,22 @@ function sliders() {
       offset += deleteNotDigits(width);
     }
 
+    slidesField.style.transform = `translateX(-${offset}px)`;
+
     if (slideIndex == slides.length) {
       slideIndex = 1;
     } else {
       slideIndex++;
     }
-    updateSlider();
+
+    if (slides.length < 10) {
+      current.textContent = `0${slideIndex}`;
+    } else {
+      current.textContent = slideIndex;
+    }
+
+    dots.forEach((dot) => (dot.style.opacity = '.5'));
+    dots[slideIndex - 1].style.opacity = 1;
   });
 
   prev.addEventListener('click', () => {
@@ -115,13 +108,22 @@ function sliders() {
       offset -= deleteNotDigits(width);
     }
 
+    slidesField.style.transform = `translateX(-${offset}px)`;
+
     if (slideIndex == 1) {
       slideIndex = slides.length;
     } else {
       slideIndex--;
     }
 
-    updateSlider();
+    if (slides.length < 10) {
+      current.textContent = `0${slideIndex}`;
+    } else {
+      current.textContent = slideIndex;
+    }
+
+    dots.forEach((dot) => (dot.style.opacity = '.5'));
+    dots[slideIndex - 1].style.opacity = 1;
   });
 
   dots.forEach((dot) => {
@@ -129,9 +131,18 @@ function sliders() {
       const slideTo = e.target.getAttribute('data-slide-to');
 
       slideIndex = slideTo;
-      offset = deleteNotDigits(width) * (+slideTo - 1);
+      offset = deleteNotDigits(width) * (slideTo - 1);
 
-      updateSlider();
+      slidesField.style.transform = `translateX(-${offset}px)`;
+
+      if (slides.length < 10) {
+        current.textContent = `0${slideIndex}`;
+      } else {
+        current.textContent = slideIndex;
+      }
+
+      dots.forEach((dot) => (dot.style.opacity = '.5'));
+      dots[slideIndex - 1].style.opacity = 1;
     });
   });
 
@@ -140,4 +151,4 @@ function sliders() {
   }
 }
 
-module.exports = sliders;
+module.exports = slider;

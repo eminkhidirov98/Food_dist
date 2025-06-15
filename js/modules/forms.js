@@ -1,4 +1,6 @@
 function forms() {
+  // Forms
+
   const forms = document.querySelectorAll('form');
   const message = {
     loading: 'img/form/spinner.svg',
@@ -21,16 +23,6 @@ function forms() {
 
     return await res.json();
   };
-
-  async function getResource(url) {
-    let res = await fetch(url);
-
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-    }
-
-    return await res.json();
-  }
 
   function bindPostData(form) {
     form.addEventListener('submit', (e) => {
